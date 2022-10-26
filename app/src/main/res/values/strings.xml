@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">King Of Seas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_of_game">King Of Seas</string>
+    <string name="play">Play</string>
+    <string name="credits">Credits</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
