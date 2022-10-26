@@ -1,4 +1,4 @@
-package com.example.kingofseas.model
+package com.example.kingofseas.Model
 
 enum class DiceFace {
     FACE_ONE,
