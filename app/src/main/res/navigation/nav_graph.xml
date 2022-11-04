@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_welcomeFragment_to_creditFragment"
             app:destination="@id/creditFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
         android:name="com.example.kingofseas.Views.CreditFragment"
         android:label="fragment_credit"
         tools:layout="@layout/fragment_credit" />
+    <fragment
+        android:id="@+id/boardFragment"
+        android:name="com.example.kingofseas.Views.BoardFragment"
+        android:label="fragment_board"
+        tools:layout="@layout/fragment_board" />
 </navigation>

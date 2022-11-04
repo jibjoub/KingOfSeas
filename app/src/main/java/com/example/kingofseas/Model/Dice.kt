@@ -1,4 +1,4 @@
 package com.example.kingofseas.Model
 
-class Dice(faces: List<DiceFace>, isSelected: Boolean, result: DiceFace) {
+class Dice(var face: Int, var isSelected: Boolean) {
 }

@@ -32,8 +32,12 @@ class WelcomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_welcome, container, false)
         val bt_credit : Button = view.findViewById(R.id.bt_credit)
+        val bt_play : Button = view.findViewById(R.id.bt_play)
         bt_credit.setOnClickListener(){
             findNavController().navigate(R.id.action_welcomeFragment_to_creditFragment)
+        }
+        bt_play.setOnClickListener() {
+            findNavController().navigate(R.id.action_welcomeFragment_to_boardFragment)
         }
         // Inflate the layout for this fragment
         return view
