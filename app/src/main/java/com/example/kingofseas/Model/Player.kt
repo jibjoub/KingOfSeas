@@ -1,5 +1,8 @@
 package com.example.kingofseas.Model
 
-class Player(val id: Int, val name: String) {
-    //, icon: String, health: Int, winPoints: Int, energy: Int, isAlive: Boolean, dices: List<Dice>, cards: List<Card>
-}
+data class Player(var name: String,
+                  val health: Int,
+                  val winPoint: Int,
+                  val energy: Int,
+                  val isAlive: Boolean,
+                  val cards: List<Card>)

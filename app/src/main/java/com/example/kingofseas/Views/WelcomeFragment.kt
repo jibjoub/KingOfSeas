@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.example.kingofseas.GameActivity
 import com.example.kingofseas.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.content.Intent
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +39,12 @@ class WelcomeFragment : Fragment() {
         val bt_credit : Button = view.findViewById(R.id.bt_credit)
         bt_credit.setOnClickListener(){
             findNavController().navigate(R.id.action_welcomeFragment_to_creditFragment)
+        }
+
+        val bt_play : Button = view.findViewById(R.id.bt_play)
+        bt_play.setOnClickListener(){
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            startActivity(intent)
         }
         // Inflate the layout for this fragment
         return view
