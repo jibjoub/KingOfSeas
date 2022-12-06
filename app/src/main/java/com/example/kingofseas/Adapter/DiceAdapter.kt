@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Model.Dice
 import com.example.kingofseas.Model.DiceFace
+import com.example.kingofseas.Model.diceFaceToString
 import com.example.kingofseas.R
 
 class DiceAdapter (var dataSource: List<Dice>, val clickListener: (Int) -> Unit): RecyclerView.Adapter<DiceAdapter.ViewHolder>() {
@@ -54,18 +55,4 @@ class DiceAdapter (var dataSource: List<Dice>, val clickListener: (Int) -> Unit)
             holder.faceText.setBackgroundColor(Color.parseColor("#ffffff"))
         }
     }
-
-    fun diceFaceToString(face: DiceFace): String {
-        return when (face) {
-            DiceFace.FACE_ONE -> "1"
-            DiceFace.FACE_TWO -> "2"
-            DiceFace.FACE_THREE -> "3"
-            DiceFace.ENERGY -> "E"
-            DiceFace.HEALTH -> "H"
-            DiceFace.DAMAGE -> "D"
-        }
-    }
-
-
-
 }

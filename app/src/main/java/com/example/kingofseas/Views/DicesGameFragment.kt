@@ -68,6 +68,7 @@ class DicesGameFragment : Fragment() {
 
         roll_bt.setOnClickListener{
             context.viewModel.rollDices()
+            context.viewModel.applyChangeEndOfRolls()
         }
     }
 }
