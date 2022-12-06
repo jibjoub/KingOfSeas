@@ -5,6 +5,6 @@ enum class DiceFace {
     FACE_TWO,
     FACE_THREE,
     ENERGY,
-    LIFE,
+    HEALTH,
     DAMAGE
 }

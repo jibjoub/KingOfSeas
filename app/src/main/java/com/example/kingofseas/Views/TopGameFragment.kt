@@ -40,14 +40,17 @@ class TopGameFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_top_game, container, false)
     }
 
-    private val viewModel: GameViewModel by viewModels()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //The context of the activity above
         val context = context as GameActivity
 
+        val viewModel = context.viewModel
+
         val players_rv: RecyclerView = view.findViewById(R.id.rv_players)
+
+        //Allow to have an horizontal recycler_view to display the players
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         players_rv.layoutManager = layoutManager
@@ -57,6 +60,7 @@ class TopGameFragment : Fragment() {
             viewModel.changeName(it)
         }
 
+        //Linking the adapter to the recycler_view
         players_rv.adapter = adapter
 
         //Allows to broadcast the change of the MutableList to the adapter
