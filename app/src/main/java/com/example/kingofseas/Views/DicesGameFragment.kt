@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Adapter.DiceAdapter
-import com.example.kingofseas.Adapter.PlayerAdapter
 import com.example.kingofseas.GameActivity
 import com.example.kingofseas.R
 
@@ -68,17 +66,14 @@ class DicesGameFragment : Fragment() {
 
         val roll_bt: Button = view.findViewById(R.id.bt_roll)
 
-        vm.number_of_rolls.observe(context, {
-            roll_bt.text = "ROLL DICES " + vm.number_of_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+        vm.remaining_rolls.observe(context, {
+            roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+            roll_bt.isEnabled = vm.remaining_rolls.value!! != 0
         })
 
         roll_bt.setOnClickListener{
             vm.rollDices()
             vm.decrementRolls()
-            if (vm.number_of_rolls.value!! == 0) {
-                roll_bt.isEnabled = false
-//                    vm.applyChangeEndOfRolls()
-            }
         }
     }
 }

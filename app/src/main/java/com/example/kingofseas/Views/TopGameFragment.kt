@@ -6,16 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Adapter.PlayerAdapter
 import com.example.kingofseas.GameActivity
-import com.example.kingofseas.Model.Player
 import com.example.kingofseas.R
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kingofseas.ViewModel.GameViewModel
-import org.w3c.dom.Text
 
 
 /**
@@ -54,7 +49,7 @@ class TopGameFragment : Fragment() {
 
         //A simple change for test purpose, need to remove it
         val adapter = PlayerAdapter(vm.players.value!!) {
-            vm.changeName(it)
+            vm.changeLiveliness(it)
         }
 
         //Linking the adapter to the recycler_view
@@ -66,6 +61,10 @@ class TopGameFragment : Fragment() {
         })
 
         val eot_bt: Button = view.findViewById(R.id.bt_end_of_turn)
+
+        vm.remaining_rolls.observe(context, {
+            eot_bt.isEnabled = vm.remaining_rolls.value!! != vm.max_number_of_rolls.value!!
+        })
 
         //Clicking on that button allows the end of the turn, it shouldn't be used when a first roll hasn't been made but I don't have time
         eot_bt.setOnClickListener{

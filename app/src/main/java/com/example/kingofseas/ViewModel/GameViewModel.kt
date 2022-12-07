@@ -1,11 +1,8 @@
 package com.example.kingofseas.ViewModel
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kingofseas.Model.*
-import java.util.*
 
 class GameViewModel : ViewModel() {
     fun test() {
@@ -15,16 +12,18 @@ class GameViewModel : ViewModel() {
     var counter: MutableLiveData<Int> = MutableLiveData(0)
 
     var max_number_of_rolls: MutableLiveData<Int> = MutableLiveData(3)
-    var number_of_rolls: MutableLiveData<Int> = MutableLiveData(3)
+    var remaining_rolls: MutableLiveData<Int> = MutableLiveData(3)
 
 
     val player1 = Player("JB", 10,0,0,true, emptyList())
-    val player2 = Player("Marty", 10,0,0,true, emptyList())
+    val player2 = Player("Marty", 10,0,0,false, emptyList())
     val player3 = Player("Alan", 10,0,0,true, emptyList())
     val player4 = Player("Phillipe", 10,0,0,true, emptyList())
     val players: MutableLiveData<List<Player>> = MutableLiveData(listOf(player1, player2, player3, player4))
 
     var currentPlayerInd = MutableLiveData(0)
+
+    var kingPlayerInd = MutableLiveData(0)
 
     val dice1 = Dice(DiceFace.FACE_ONE, false)
     val dice2 = Dice(DiceFace.FACE_ONE, false)
@@ -35,20 +34,15 @@ class GameViewModel : ViewModel() {
 
     val dices: MutableLiveData<List<Dice>> = MutableLiveData(listOf(dice1, dice2, dice3, dice4, dice5, dice6))
 
+    //Decrement the number of remaining rolls
     fun decrementRolls() {
-        number_of_rolls.postValue(number_of_rolls.value!!.dec())
+        remaining_rolls.postValue(remaining_rolls.value!!.dec())
     }
 
-    fun incrementCounter() {
-        number_of_rolls.postValue(counter.value!!.inc())
-    }
-    fun counterString(): String {
-        return counter.value?.toString() ?: "0"
-    }
-
-    fun changeName(position: Int) {
+    //Kill or bring back to life a player
+    fun changeLiveliness(position: Int) {
         var temp = players.value
-        temp!![position].name = "test"
+        temp!![position].isAlive = !temp!![position].isAlive
         players.postValue(temp!!)
     }
 
@@ -64,12 +58,14 @@ class GameViewModel : ViewModel() {
         players.postValue(temp_players!!)
     }
 
+    //Change the selection (if they will be rerolled or not) of the dices[position] dice
     fun changeSelection(position: Int) {
         var temp = dices.value
         temp!![position].isSelected = !temp!![position].isSelected
         dices.postValue(temp!!)
     }
 
+    //Roll the non selected dices
     fun rollDices(){
         var temp = dices.value
         for (i in 0..(temp!!.size-1)) {
@@ -80,14 +76,25 @@ class GameViewModel : ViewModel() {
         dices.postValue(temp!!)
     }
 
+    //Change the currentPlayerInd to the next alive player
     fun nextPlayer(){
-        if (currentPlayerInd.value!! == players.value!!.size - 1)
-            currentPlayerInd.postValue(0)
-        else
-            currentPlayerInd.postValue(currentPlayerInd.value!! + 1)
+        var temp_id = currentPlayerInd.value!!
+        temp_id++
+        if (temp_id == players.value!!.size)
+            temp_id = 0
+        while (!players.value!![temp_id].isAlive) {
+            if (temp_id == players.value!!.size)
+                temp_id = 0
+            else
+                temp_id += 1
+        }
+        currentPlayerInd.postValue(temp_id)
+        //reset the number of remaining rolls
+        remaining_rolls.postValue(max_number_of_rolls.value!!)
     }
 
 
+    //Apply the effects of the final set of dices of a turn on all the players
     fun applyChangeEndOfRolls(){
         val num_map = mutableMapOf(DiceFace.FACE_ONE to 0, DiceFace.FACE_TWO to 0, DiceFace.FACE_THREE to 0, DiceFace.HEALTH to 0, DiceFace.ENERGY to 0, DiceFace.DAMAGE to 0)
         //For now it updates each time a change is made but for now it's enough
