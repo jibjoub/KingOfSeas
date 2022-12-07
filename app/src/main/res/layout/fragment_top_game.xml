@@ -7,21 +7,21 @@
     tools:context=".Views.TopGameFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_players"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/rv_players"
         android:orientation="horizontal"
         app:reverseLayout="true">
     </androidx.recyclerview.widget.RecyclerView>
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_test"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toEndOf="@id/rv_players"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-<!--    </TextView>-->
+    <Button
+        android:id="@+id/bt_end_of_turn"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="End Of Turn">
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

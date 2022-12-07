@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -46,7 +43,7 @@ class TopGameFragment : Fragment() {
         //The context of the activity above
         val context = context as GameActivity
 
-        val viewModel = context.viewModel
+        val vm = context.viewModel
 
         val players_rv: RecyclerView = view.findViewById(R.id.rv_players)
 
@@ -56,16 +53,30 @@ class TopGameFragment : Fragment() {
         players_rv.layoutManager = layoutManager
 
         //A simple change for test purpose, need to remove it
-        val adapter = PlayerAdapter(viewModel.players.value!!) {
-            viewModel.changeName(it)
+        val adapter = PlayerAdapter(vm.players.value!!) {
+            vm.changeName(it)
         }
 
         //Linking the adapter to the recycler_view
         players_rv.adapter = adapter
 
         //Allows to broadcast the change of the MutableList to the adapter
-        viewModel.players.observe(context, {
-            adapter.setData(viewModel.players.value!!)
+        vm.players.observe(context, {
+            adapter.setData(vm.players.value!!)
+        })
+
+        val eot_bt: Button = view.findViewById(R.id.bt_end_of_turn)
+
+        //Clicking on that button allows the end of the turn, it shouldn't be used when a first roll hasn't been made but I don't have time
+        eot_bt.setOnClickListener{
+            vm.applyChangeEndOfRolls()
+            vm.nextPlayer()
+        }
+
+        //Notify the screen whenever the current player is changed
+        vm.currentPlayerInd.observe(context, {
+            val player = vm.players.value!![vm.currentPlayerInd.value!!]
+            Toast.makeText(context,player.name + "'s turn", Toast.LENGTH_SHORT).show()
         })
     }
 }

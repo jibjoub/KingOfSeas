@@ -44,6 +44,8 @@ class DicesGameFragment : Fragment() {
         //The context of the activity above
         val context = context as GameActivity
 
+        val vm = context.viewModel
+
         val dices_rv: RecyclerView = view.findViewById(R.id.rv_dices)
 
         //Allow to have an horizontal recycler_view to display the players
@@ -52,23 +54,31 @@ class DicesGameFragment : Fragment() {
         dices_rv.layoutManager = layoutManager
 
         //A simple change for test purpose, need to remove it
-        val adapter = DiceAdapter(context.viewModel.dices.value!!) {
-            context.viewModel.changeSelection(it)
+        val adapter = DiceAdapter(vm.dices.value!!) {
+            vm.changeSelection(it)
         }
 
         //Linking the adapter to the recycler_view
         dices_rv.adapter = adapter
 
         //Allows to broadcast the change of the MutableList to the adapter
-        context.viewModel.dices.observe(context, {
-            adapter.setData(context.viewModel.dices.value!!)
+        vm.dices.observe(context, {
+            adapter.setData(vm.dices.value!!)
         })
 
         val roll_bt: Button = view.findViewById(R.id.bt_roll)
 
+        vm.number_of_rolls.observe(context, {
+            roll_bt.text = "ROLL DICES " + vm.number_of_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+        })
+
         roll_bt.setOnClickListener{
-            context.viewModel.rollDices()
-            context.viewModel.applyChangeEndOfRolls()
+            vm.rollDices()
+            vm.decrementRolls()
+            if (vm.number_of_rolls.value!! == 0) {
+                roll_bt.isEnabled = false
+//                    vm.applyChangeEndOfRolls()
+            }
         }
     }
 }
