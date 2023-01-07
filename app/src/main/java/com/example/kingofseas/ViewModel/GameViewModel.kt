@@ -65,6 +65,15 @@ class GameViewModel : ViewModel() {
         dices.postValue(temp!!)
     }
 
+    //Reset dices selction
+    fun resetDices() {
+        var temp = dices.value
+        for (i in 0..(temp!!.size-1)) {
+            temp!![i].isSelected = false
+        }
+        dices.postValue(temp!!)
+    }
+
     //Roll the non selected dices
     fun rollDices(){
         var temp = dices.value
@@ -89,8 +98,10 @@ class GameViewModel : ViewModel() {
                 temp_id += 1
         }
         currentPlayerInd.postValue(temp_id)
-        //reset the number of remaining rolls
-        remaining_rolls.postValue(max_number_of_rolls.value!!)
+        //reset the number of remaining rolls and roll the dices
+        resetDices()
+        rollDices()
+        remaining_rolls.postValue(max_number_of_rolls.value!! - 1)
     }
 
 
