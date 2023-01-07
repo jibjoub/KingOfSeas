@@ -1,5 +1,6 @@
 package com.example.kingofseas.ViewModel
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kingofseas.Model.*
@@ -16,14 +17,14 @@ class GameViewModel : ViewModel() {
 
 
     val player1 = Player("JB", 10,0,0,true, emptyList())
-    val player2 = Player("Marty", 10,0,0,false, emptyList())
+    val player2 = Player("Marty", 10,0,0,true, emptyList())
     val player3 = Player("Alan", 10,0,0,true, emptyList())
     val player4 = Player("Phillipe", 10,0,0,true, emptyList())
     val players: MutableLiveData<List<Player>> = MutableLiveData(listOf(player1, player2, player3, player4))
 
     var currentPlayerInd = MutableLiveData(0)
 
-    var kingPlayerInd = MutableLiveData(0)
+    var kingPlayerInd = MutableLiveData(-1)
 
     val dice1 = Dice(DiceFace.FACE_ONE, false)
     val dice2 = Dice(DiceFace.FACE_ONE, false)
@@ -51,8 +52,23 @@ class GameViewModel : ViewModel() {
         var temp_players = players.value
         if (face == DiceFace.FACE_ONE || face == DiceFace.FACE_TWO || face == DiceFace.FACE_THREE)
             temp_players!![position].winPoint += value
-        if (face == DiceFace.HEALTH)
-            temp_players!![position].health += value
+        //Deal with all the rules related to health
+        if (face == DiceFace.HEALTH || face == DiceFace.DAMAGE) {
+            //A king can't get HP
+            if (position != kingPlayerInd.value || face == DiceFace.DAMAGE)
+                temp_players!![position].health += value
+            //Death case
+            if (temp_players!![position].health <= 0) {
+                temp_players!![position].health = 0
+                temp_players!![position].isAlive = false
+                if (position == kingPlayerInd.value){
+                    kingPlayerInd.value = -1
+                }
+            }
+            //Can't go higher than 10 HP
+            if (temp_players!![position].health > 10)
+                temp_players!![position].health = 10
+        }
         if (face == DiceFace.ENERGY)
             temp_players!![position].energy += value
         players.postValue(temp_players!!)
@@ -76,6 +92,15 @@ class GameViewModel : ViewModel() {
         dices.postValue(temp!!)
     }
 
+    //Reset dices selection
+    fun resetDices() {
+        var temp = dices.value
+        for (i in 0..(temp!!.size-1)) {
+            temp!![i].isSelected = false
+        }
+        dices.postValue(temp!!)
+    }
+
     //Change the currentPlayerInd to the next alive player
     fun nextPlayer(){
         var temp_id = currentPlayerInd.value!!
@@ -89,13 +114,25 @@ class GameViewModel : ViewModel() {
                 temp_id += 1
         }
         currentPlayerInd.postValue(temp_id)
+        resetDices()
+        rollDices()
         //reset the number of remaining rolls
-        remaining_rolls.postValue(max_number_of_rolls.value!!)
+        remaining_rolls.postValue(max_number_of_rolls.value!! - 1)
+
+    }
+
+    //Put the player as king or propose to the current king if s/he wants to go out
+    fun in_out_king() {
+        if (kingPlayerInd.value == -1) {
+            kingPlayerInd.value = currentPlayerInd.value
+
+        }
     }
 
 
     //Apply the effects of the final set of dices of a turn on all the players
     fun applyChangeEndOfRolls(){
+        //Keeps track of the number of dices of each type
         val num_map = mutableMapOf(DiceFace.FACE_ONE to 0, DiceFace.FACE_TWO to 0, DiceFace.FACE_THREE to 0, DiceFace.HEALTH to 0, DiceFace.ENERGY to 0, DiceFace.DAMAGE to 0)
         //For now it updates each time a change is made but for now it's enough
         for (dice: Dice in dices.value!!) {
@@ -105,9 +142,24 @@ class GameViewModel : ViewModel() {
             //For the dice faces with numbers
             if (entry.key == DiceFace.FACE_ONE || entry.key == DiceFace.FACE_TWO || entry.key == DiceFace.FACE_THREE) {
                 if (entry.value >= 3)
-                    addToPlayerValue(entry.key, currentPlayerInd.value!!,  diceFaceToInt(entry.key) + entry.value.mod(3))
+                    addToPlayerValue(entry.key, currentPlayerInd.value!!,  diceFaceToInt(entry.key) + entry.value - 3)
             }
-            //for the non number faces TODO for the damage
+            //For the non number faces
+            if (entry.key == DiceFace.DAMAGE) {
+                if (currentPlayerInd.value == kingPlayerInd.value) {
+                    for (i in 0..3) {
+                        if (i != kingPlayerInd.value) {
+                            addToPlayerValue(entry.key, i, diceFaceToInt(entry.key) * entry.value)
+                        }
+                    }
+                }
+                else {
+                    if (kingPlayerInd.value != -1) {
+                        addToPlayerValue(entry.key, kingPlayerInd.value!!,  diceFaceToInt(entry.key) * entry.value)
+                    }
+                }
+            }
+            //Energy and Health
             else
                 addToPlayerValue(entry.key, currentPlayerInd.value!!, entry.value)
         }

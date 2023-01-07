@@ -49,7 +49,7 @@ class TopGameFragment : Fragment() {
 
         //A simple change for test purpose, need to remove it
         val adapter = PlayerAdapter(vm.players.value!!) {
-            vm.changeLiveliness(it)
+            //vm.changeLiveliness(it)
         }
 
         //Linking the adapter to the recycler_view
@@ -66,9 +66,10 @@ class TopGameFragment : Fragment() {
             eot_bt.isEnabled = vm.remaining_rolls.value!! != vm.max_number_of_rolls.value!!
         })
 
-        //Clicking on that button allows the end of the turn, it shouldn't be used when a first roll hasn't been made but I don't have time
+        //Clicking on that button allows the end of the turn
         eot_bt.setOnClickListener{
             vm.applyChangeEndOfRolls()
+            vm.in_out_king()
             vm.nextPlayer()
         }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.kingofseas.GameActivity
 import com.example.kingofseas.R
 
@@ -44,7 +45,14 @@ class MapGameFragment : Fragment() {
         val tvKing = view.findViewById<TextView>(R.id.tv_king)
 
         vm.kingPlayerInd.observe(context, {
-            tvKing.text = vm.players.value!![0].name
+            if (vm.kingPlayerInd.value!! == -1)
+                tvKing.text = "No king in the Sea"
+            else {
+                val king_name = vm.players.value!![vm.kingPlayerInd.value!!].name
+                tvKing.text = king_name
+                Toast.makeText(context, "$king_name is now king/queen", Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 

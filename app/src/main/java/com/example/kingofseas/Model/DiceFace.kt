@@ -25,8 +25,8 @@ fun diceFaceToInt(face: DiceFace): Int {
         DiceFace.FACE_ONE -> 1
         DiceFace.FACE_TWO -> 2
         DiceFace.FACE_THREE -> 3
-        DiceFace.ENERGY -> 4
-        DiceFace.HEALTH -> 5
-        DiceFace.DAMAGE -> 6
+        DiceFace.ENERGY -> 1
+        DiceFace.HEALTH -> 1
+        DiceFace.DAMAGE -> -1
     }
 }
