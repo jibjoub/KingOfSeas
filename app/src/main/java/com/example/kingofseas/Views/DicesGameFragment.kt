@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Adapter.DiceAdapter
@@ -65,10 +66,15 @@ class DicesGameFragment : Fragment() {
         })
 
         val roll_bt: Button = view.findViewById(R.id.bt_roll)
+        val current_player_tv: TextView = view.findViewById(R.id.tv_current_player)
 
         vm.remaining_rolls.observe(context, {
             roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
             roll_bt.isEnabled = vm.remaining_rolls.value!! != 0
+        })
+
+        vm.currentPlayerInd.observe(context, {
+            current_player_tv.text = vm.players.value!![vm.currentPlayerInd.value!!].name + " is playing"
         })
 
         roll_bt.setOnClickListener{

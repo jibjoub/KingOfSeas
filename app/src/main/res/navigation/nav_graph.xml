@@ -15,6 +15,12 @@
             app:destination="@id/creditFragment" />
     </fragment>
     <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.kingofseas.Views.MapGameFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map_game" >
+    </fragment>
+    <fragment
         android:id="@+id/creditFragment"
         android:name="com.example.kingofseas.Views.CreditFragment"
         android:label="fragment_credit"

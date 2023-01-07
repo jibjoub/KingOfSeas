@@ -1,13 +1,18 @@
 package com.example.kingofseas.Views
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.kingofseas.GameActivity
+import com.example.kingofseas.GameOverActivity
 import com.example.kingofseas.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,8 +35,10 @@ class MapGameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_map_game, container, false)
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map_game, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +50,7 @@ class MapGameFragment : Fragment() {
         val vm = context.viewModel
 
         val tvKing = view.findViewById<TextView>(R.id.tv_king)
+        //val tvWinner = view.findViewById<TextView>(R.id.tv_winner)
 
         vm.kingPlayerInd.observe(context, {
             if (vm.kingPlayerInd.value!! == -1)
@@ -53,6 +61,14 @@ class MapGameFragment : Fragment() {
                 Toast.makeText(context, "$king_name is now king/queen", Toast.LENGTH_SHORT).show()
             }
 
+        })
+
+        vm.is_game_finished.observe(context, {
+            if (vm.is_game_finished.value!!.first) {
+                val intent = Intent(requireContext(), GameOverActivity::class.java)
+                intent.putExtra("winner", vm.is_game_finished.value!!.second)
+                startActivity(intent)
+            }
         })
     }
 

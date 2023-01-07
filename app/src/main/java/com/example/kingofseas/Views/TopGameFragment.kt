@@ -108,11 +108,5 @@ class TopGameFragment : Fragment() {
                 vm.king_being_attacked.value = false
             }
         })
-
-        //Notify the screen whenever the current player is changed
-        vm.currentPlayerInd.observe(context, {
-            val player = vm.players.value!![vm.currentPlayerInd.value!!]
-            Toast.makeText(context,player.name + "'s turn", Toast.LENGTH_SHORT).show()
-        })
     }
 }

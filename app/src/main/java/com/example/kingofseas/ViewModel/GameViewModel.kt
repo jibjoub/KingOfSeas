@@ -15,6 +15,7 @@ class GameViewModel : ViewModel() {
     var max_number_of_rolls: MutableLiveData<Int> = MutableLiveData(3)
     var remaining_rolls: MutableLiveData<Int> = MutableLiveData(3)
     var king_being_attacked: MutableLiveData<Boolean> = MutableLiveData(false)
+    var is_game_finished: MutableLiveData<Pair<Boolean,String>> = MutableLiveData(Pair(false, ""))
 
 
     val player1 = Player("JB", 10,0,0,true, emptyList())
@@ -51,8 +52,13 @@ class GameViewModel : ViewModel() {
     //Add the value to the Health, Energy, Winning Point depending on the face to the player at the position in the list
     fun addToPlayerValue(face: DiceFace, position: Int, value: Int) {
         var temp_players = players.value
-        if (face == DiceFace.FACE_ONE || face == DiceFace.FACE_TWO || face == DiceFace.FACE_THREE)
+        if (face == DiceFace.FACE_ONE || face == DiceFace.FACE_TWO || face == DiceFace.FACE_THREE) {
             temp_players!![position].winPoint += value
+            if (temp_players!![position].winPoint >= 20) {
+                is_game_finished.value = Pair(true, players.value!![position].name)
+            }
+        }
+
         //Deal with all the rules related to health
         if (face == DiceFace.HEALTH || face == DiceFace.DAMAGE) {
             //A king can't get HP
@@ -65,6 +71,13 @@ class GameViewModel : ViewModel() {
                 if (position == kingPlayerInd.value){
                     kingPlayerInd.value = -1
                 }
+                var player_alive = 0
+                for (player in players.value!!){
+                    if (player.isAlive)
+                        player_alive++
+                }
+                if (player_alive <= 1)
+                    is_game_finished.value = Pair(true, players.value!![currentPlayerInd.value!!].name)
             }
             //Can't go higher than 10 HP
             if (temp_players!![position].health > 10)
@@ -109,17 +122,15 @@ class GameViewModel : ViewModel() {
         if (temp_id == players.value!!.size)
             temp_id = 0
         while (!players.value!![temp_id].isAlive) {
+            temp_id += 1
             if (temp_id == players.value!!.size)
                 temp_id = 0
-            else
-                temp_id += 1
         }
         currentPlayerInd.postValue(temp_id)
         resetDices()
         rollDices()
         //reset the number of remaining rolls
         remaining_rolls.postValue(max_number_of_rolls.value!! - 1)
-
     }
 
     //Put the player as king or propose to the current king if s/he wants to go out
@@ -163,8 +174,8 @@ class GameViewModel : ViewModel() {
                     }
                 }
             }
-            //Energy and Health
-            else
+            //Energy
+            if (entry.key == DiceFace.ENERGY)
                 addToPlayerValue(entry.key, currentPlayerInd.value!!, entry.value)
         }
 

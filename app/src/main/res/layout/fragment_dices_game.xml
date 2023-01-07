@@ -15,11 +15,25 @@
         android:layout_gravity="center_horizontal">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/bt_roll"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Roll dices"/>
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_current_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="grrrr"
+            android:paddingEnd="10dp">
+        </TextView>
+        <Button
+            android:id="@+id/bt_roll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll dices"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
 
 </LinearLayout>
