@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.kingofseas.Model.*
 
 class GameViewModel : ViewModel() {
-    fun test() {
-        println(GameManager.players[0].name)
-    }
-
     var counter: MutableLiveData<Int> = MutableLiveData(0)
 
     var max_number_of_rolls: MutableLiveData<Int> = MutableLiveData(3)
@@ -30,7 +26,7 @@ class GameViewModel : ViewModel() {
     val dice3 = Dice(DiceFace.FACE_TWO, false)
     val dice4 = Dice(DiceFace.FACE_TWO, false)
     val dice5 = Dice(DiceFace.FACE_THREE, false)
-    val dice6 = Dice(DiceFace.FACE_THREE, false)
+    val dice6 = Dice(DiceFace.DAMAGE, false)
 
     val dices: MutableLiveData<List<Dice>> = MutableLiveData(listOf(dice1, dice2, dice3, dice4, dice5, dice6))
 
@@ -44,6 +40,28 @@ class GameViewModel : ViewModel() {
         var temp = players.value
         temp!![position].isAlive = !temp!![position].isAlive
         players.postValue(temp!!)
+    }
+
+    fun hitPlayers(position: Int, kingPosition: Int, value: Int) {
+        var tempPlayer = players.value!!
+        if (position == kingPosition) {
+            for (i in 0 until tempPlayer.count()) {
+                if (tempPlayer[i].name != tempPlayer[position].name)
+                    tempPlayer[i].health -= value
+                // Kill if needed
+                if (tempPlayer[i].health <= 0)
+                    tempPlayer[i].isAlive = false
+            }
+        }
+        else
+        {
+            tempPlayer[kingPosition].health -= value
+            // Kill if needed
+            if (tempPlayer[kingPosition].health <= 0)
+                tempPlayer[kingPosition].isAlive = false
+            // TODO Select new king
+        }
+        players.postValue(tempPlayer)
     }
 
     //Add the value to the Health, Energy, Winning Point depending on the face to the player at the position in the list
@@ -116,9 +134,12 @@ class GameViewModel : ViewModel() {
             //For the dice faces with numbers
             if (entry.key == DiceFace.FACE_ONE || entry.key == DiceFace.FACE_TWO || entry.key == DiceFace.FACE_THREE) {
                 if (entry.value >= 3)
+                    // TODO remove modulo ?
                     addToPlayerValue(entry.key, currentPlayerInd.value!!,  diceFaceToInt(entry.key) + entry.value.mod(3))
             }
-            //for the non number faces TODO for the damage
+            else if (entry.key == DiceFace.DAMAGE) {
+                hitPlayers(currentPlayerInd.value!!, kingPlayerInd.value!!, entry.value)
+            }
             else
                 addToPlayerValue(entry.key, currentPlayerInd.value!!, entry.value)
         }
