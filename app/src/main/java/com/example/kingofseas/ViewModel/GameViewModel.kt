@@ -14,6 +14,7 @@ class GameViewModel : ViewModel() {
 
     var max_number_of_rolls: MutableLiveData<Int> = MutableLiveData(3)
     var remaining_rolls: MutableLiveData<Int> = MutableLiveData(3)
+    var king_being_attacked: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
     val player1 = Player("JB", 10,0,0,true, emptyList())
@@ -146,6 +147,7 @@ class GameViewModel : ViewModel() {
             }
             //For the non number faces
             if (entry.key == DiceFace.DAMAGE) {
+                //King attacking
                 if (currentPlayerInd.value == kingPlayerInd.value) {
                     for (i in 0..3) {
                         if (i != kingPlayerInd.value) {
@@ -153,9 +155,11 @@ class GameViewModel : ViewModel() {
                         }
                     }
                 }
+                //King being attacked
                 else {
                     if (kingPlayerInd.value != -1) {
                         addToPlayerValue(entry.key, kingPlayerInd.value!!,  diceFaceToInt(entry.key) * entry.value)
+                        king_being_attacked.value = true
                     }
                 }
             }

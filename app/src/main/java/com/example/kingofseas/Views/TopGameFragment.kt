@@ -1,5 +1,7 @@
 package com.example.kingofseas.Views
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,12 +68,46 @@ class TopGameFragment : Fragment() {
             eot_bt.isEnabled = vm.remaining_rolls.value!! != vm.max_number_of_rolls.value!!
         })
 
+        fun modalEscapeQuestion(){
+            // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
+            val builder: AlertDialog.Builder? = activity?.let {
+                AlertDialog.Builder(it)
+            }
+
+            builder.apply {
+                this!!.setPositiveButton("Leave",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        vm.kingPlayerInd.value = -1
+                        Toast.makeText(context, "Escaping", Toast.LENGTH_SHORT).show()
+                    })
+                setNegativeButton("Stay",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(context, "Staying", Toast.LENGTH_SHORT).show()
+                    })
+            }
+
+            // 2. Chain together various setter methods to set the dialog characteristics
+            builder?.setMessage("Do you want to escape Tokyo?")!!.setTitle("The king is being attacked!")
+
+            // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+            val dialog: AlertDialog? = builder?.create()
+
+            dialog!!.show()
+        }
+
         //Clicking on that button allows the end of the turn
         eot_bt.setOnClickListener{
             vm.applyChangeEndOfRolls()
             vm.in_out_king()
             vm.nextPlayer()
         }
+
+        vm.king_being_attacked.observe(context, {
+            if (vm.king_being_attacked.value!!) {
+                modalEscapeQuestion()
+                vm.king_being_attacked.value = false
+            }
+        })
 
         //Notify the screen whenever the current player is changed
         vm.currentPlayerInd.observe(context, {
