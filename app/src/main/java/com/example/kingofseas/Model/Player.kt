@@ -5,4 +5,4 @@ data class Player(var name: String,
                   var winPoint: Int,
                   var energy: Int,
                   var isAlive: Boolean,
-                  val cards: List<Card>)
+                  var Icon: Int)

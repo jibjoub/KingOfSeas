@@ -13,6 +13,7 @@ import com.example.kingofseas.Adapter.PlayerAdapter
 import com.example.kingofseas.GameActivity
 import com.example.kingofseas.R
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kingofseas.R.color.dark_blue_top
 
 
 /**

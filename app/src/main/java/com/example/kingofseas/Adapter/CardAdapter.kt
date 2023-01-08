@@ -46,7 +46,7 @@ class CardAdapter(var dataSource: List<Card>, val clickListener: (Int) -> Unit):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.image.setImageResource(R.drawable.seamap_wide)
+        holder.image.setImageResource(dataSource[position].image)
         holder.title.text = dataSource[position].title
         holder.description.text = dataSource[position].description
         holder.itemView.setOnClickListener {

@@ -4,11 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kingofseas.Model.*
+import com.example.kingofseas.R
 
 class GameViewModel : ViewModel() {
-    fun test() {
-        println(GameManager.players[0].name)
-    }
+
 
     var counter: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -18,10 +17,10 @@ class GameViewModel : ViewModel() {
     var is_game_finished: MutableLiveData<Pair<Boolean,String>> = MutableLiveData(Pair(false, ""))
 
 
-    val player1 = Player("JB", 10,0,0,true, emptyList())
-    val player2 = Player("Marty", 10,0,0,true, emptyList())
-    val player3 = Player("Alan", 10,0,0,true, emptyList())
-    val player4 = Player("Phillipe", 10,0,0,true, emptyList())
+    val player1 = Player("JB", 10,0,0,true, R.drawable.kraken1)
+    val player2 = Player("Marty", 10,0,0,true, R.drawable.kraken2)
+    val player3 = Player("Alan", 10,0,0,true, R.drawable.kraken3)
+    val player4 = Player("Phillipe", 10,0,0,true, R.drawable.sea_monster)
     val players: MutableLiveData<List<Player>> = MutableLiveData(listOf(player1, player2, player3, player4))
 
     var currentPlayerInd = MutableLiveData(0)
@@ -37,9 +36,9 @@ class GameViewModel : ViewModel() {
 
     val dices: MutableLiveData<List<Dice>> = MutableLiveData(listOf(dice1, dice2, dice3, dice4, dice5, dice6))
 
-    val card1 = Card("MedKit", "Get 3 HP", 3)
-    val card2 = Card("Close to Victory", "Get 3WP", 7)
-    val card3 = Card("Dices for everyone", "1 more roll", 10)
+    val card1 = Card("MedKit", "Get 3 HP", 3, R.drawable.medikit_card)
+    val card2 = Card("Close to Victory", "Get 3WP", 7, R.drawable.winning_points_card)
+    val card3 = Card("More dies", "1 more roll", 10, R.drawable.more_dice_card)
 
     val cards: MutableLiveData<List<Card>> = MutableLiveData(listOf(card1,card2,card3))
 

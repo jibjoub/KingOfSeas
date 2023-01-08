@@ -3,13 +3,12 @@ package com.example.kingofseas.Adapter
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.LinearLayout
-import android.widget.TextClock
-import android.widget.TextView
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Model.Player
 import com.example.kingofseas.R
@@ -38,7 +37,8 @@ class PlayerAdapter(var dataSource: List<Player>, val clickListener: (Int) -> Un
         val healthText = rowView.findViewById(R.id.health) as TextView
         val winPointsText = rowView.findViewById(R.id.win_points) as TextView
         val energyText = rowView.findViewById(R.id.energy) as TextView
-        val layoutItem = rowView.findViewById<LinearLayout>(R.id.layout_item)
+        val image = rowView.findViewById(R.id.iv_icon_player) as ImageView
+        val layoutItem = rowView.findViewById<ConstraintLayout>(R.id.layout_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -55,7 +55,8 @@ class PlayerAdapter(var dataSource: List<Player>, val clickListener: (Int) -> Un
         holder.nameText.text = dataSource[position].name
         holder.healthText.text = dataSource[position].health.toString() + "HP"
         holder.winPointsText.text = dataSource[position].winPoint.toString() + "WP"
-        holder.energyText.text = dataSource[position].energy.toString() + "energy"
+        holder.energyText.text = dataSource[position].energy.toString() + " E"
+        holder.image.setImageResource(dataSource[position].Icon)
         //Grey out the player if he/she is dead or not
         if (dataSource[position].isAlive)
             holder.layoutItem.setBackgroundColor(Color.parseColor("#FFFFFF"))
