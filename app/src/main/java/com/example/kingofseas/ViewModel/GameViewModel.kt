@@ -56,7 +56,11 @@ class GameViewModel : ViewModel() {
 
     fun applyCard(position: Int) {
         if (cards.value!![position].title == card1.title) {
-            addToPlayerValue(DiceFace.HEALTH, currentPlayerInd.value!!, 3)
+            var temp_players = players.value
+            temp_players!![currentPlayerInd.value!!].health += 3
+            if (temp_players!![currentPlayerInd.value!!].health > 10)
+                temp_players!![currentPlayerInd.value!!].health = 10
+            players.postValue(temp_players!!)
         }
 
         if (cards.value!![position].title == card2.title) {
