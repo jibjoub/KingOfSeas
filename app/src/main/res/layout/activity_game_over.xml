@@ -5,51 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hokusai"
-    tools:context=".Views.WelcomeFragment">
+    tools:context=".GameOverActivity">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView"
-        style="@style/Theme.MyApplication.GameTitle"
-        android:layout_width="280dp"
+        android:id="@+id/tv_winner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
+        android:padding="10dp"
         android:shadowColor="@color/shadow"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="5"
-        android:text="@string/title_of_game"
+        android:text="game over"
         android:textColor="@color/yellow_button"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bt_main_menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/bt_main_menu"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_radius"
+        android:fontFamily="@font/roboto"
+        android:text="Back to main menu"
+        android:textColor="@color/shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bt_play"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30pt"
-        android:background="@drawable/corner_radius"
-        android:fontFamily="@font/roboto"
-        android:text="@string/play"
-        android:textColor="@color/shadow"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/bt_credit"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20pt"
-        android:background="@drawable/corner_radius"
-        android:fontFamily="@font/roboto"
-        android:text="@string/credits"
-        android:textColor="@color/shadow"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
