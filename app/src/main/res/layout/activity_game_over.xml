@@ -4,26 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hokusai"
     tools:context=".GameOverActivity">
+
     <TextView
         android:id="@+id/tv_winner"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:padding="10dp"
+        android:shadowColor="@color/shadow"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
         android:text="game over"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
+        android:textColor="@color/yellow_button"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bt_main_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/bt_main_menu"
-        android:text="Back to main menu"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/corner_radius"
+        android:fontFamily="@font/roboto"
+        android:text="Back to main menu"
+        android:textColor="@color/shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
