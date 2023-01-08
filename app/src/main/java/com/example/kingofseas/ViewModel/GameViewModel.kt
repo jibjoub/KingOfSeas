@@ -36,9 +36,9 @@ class GameViewModel : ViewModel() {
 
     val dices: MutableLiveData<List<Dice>> = MutableLiveData(listOf(dice1, dice2, dice3, dice4, dice5, dice6))
 
-    val card1 = Card("MedKit", "Get 3 HP", 3, R.drawable.medikit_card)
-    val card2 = Card("Close to Victory", "Get 3WP", 7, R.drawable.winning_points_card)
-    val card3 = Card("More dies", "1 more roll", 10, R.drawable.more_dice_card)
+    val card1 = Card("MedKit", "Get 3 HP", 2, R.drawable.medikit_card)
+    val card2 = Card("Close to Victory", "Get 3 WP", 3, R.drawable.winning_points_card)
+    val card3 = Card("Feeling generous", "1 more roll for all", 4, R.drawable.more_dice_card)
 
     val cards: MutableLiveData<List<Card>> = MutableLiveData(listOf(card1,card2,card3))
 

@@ -68,7 +68,7 @@ class DicesGameFragment : Fragment() {
         val ic_current_player: ImageView = view.findViewById(R.id.iv_icon_player_current)
 
         vm.remaining_rolls.observe(context, {
-            roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+            roll_bt.text = "ROLL DICE " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
             roll_bt.isEnabled = vm.remaining_rolls.value!! != 0
         })
 
@@ -78,7 +78,7 @@ class DicesGameFragment : Fragment() {
         })
 
         vm.max_number_of_rolls.observe(context, {
-            roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+            roll_bt.text = "ROLL DICE " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
         })
 
         vm.rollDices()
