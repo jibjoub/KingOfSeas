@@ -50,7 +50,8 @@ class CardsGameFragment : Fragment() {
         val vm = context.viewModel
 
         val adapter = CardAdapter(vm.cards.value!!) {
-            vm.applyCard(it)
+            if (!vm.canApplyCard(it))
+                Toast.makeText(context, "Not enough energy", Toast.LENGTH_SHORT).show()
         }
 
         val cards_rv: RecyclerView = view.findViewById(R.id.rv_cards)

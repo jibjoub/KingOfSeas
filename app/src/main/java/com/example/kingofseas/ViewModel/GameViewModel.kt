@@ -68,6 +68,15 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    fun canApplyCard(position: Int): Boolean {
+        if (cards.value!![position].price <= players.value!![currentPlayerInd.value!!].energy) {
+            applyCard(position)
+            addToPlayerValue(DiceFace.ENERGY, currentPlayerInd.value!!, -cards.value!![position].price)
+            return true
+        }
+        return false
+    }
+
     //Add the value to the Health, Energy, Winning Point depending on the face to the player at the position in the list
     fun addToPlayerValue(face: DiceFace, position: Int, value: Int) {
         var temp_players = players.value

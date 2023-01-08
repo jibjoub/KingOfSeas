@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity"
     android:orientation="vertical"
-    android:background="#4AC3F8">
+    android:background="@color/clear_blue">
 
     <fragment
         android:layout_width="match_parent"
@@ -34,13 +34,13 @@
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".60"
+                android:layout_weight=".65"
                 android:name="com.example.kingofseas.Views.CardsGameFragment"
                 android:id="@+id/cardsGameFragment"/>
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".40"
+                android:layout_weight=".35"
                 android:name="com.example.kingofseas.Views.DicesGameFragment"
                 android:id="@+id/dicesGameFragment"/>
 

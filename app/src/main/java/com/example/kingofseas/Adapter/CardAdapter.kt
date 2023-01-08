@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Model.Card
 import com.example.kingofseas.R
+import org.w3c.dom.Text
 
 class CardAdapter(var dataSource: List<Card>, val clickListener: (Int) -> Unit): RecyclerView.Adapter<CardAdapter.ViewHolder>() {
     interface OnItemClickListener {
@@ -33,6 +34,7 @@ class CardAdapter(var dataSource: List<Card>, val clickListener: (Int) -> Unit):
         val image = rowView.findViewById(R.id.iv_card) as ImageView
         val title = rowView.findViewById(R.id.tv_title_card) as TextView
         val description = rowView.findViewById(R.id.tv_description) as TextView
+        val energy = rowView.findViewById<TextView>(R.id.tv_energy)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,6 +51,7 @@ class CardAdapter(var dataSource: List<Card>, val clickListener: (Int) -> Unit):
         holder.image.setImageResource(dataSource[position].image)
         holder.title.text = dataSource[position].title
         holder.description.text = dataSource[position].description
+        holder.energy.text = dataSource[position].price.toString() + " E"
         holder.itemView.setOnClickListener {
             clickListener(position)
         }
