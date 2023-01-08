@@ -77,6 +77,10 @@ class DicesGameFragment : Fragment() {
             current_player_tv.text = vm.players.value!![vm.currentPlayerInd.value!!].name + " is playing"
         })
 
+        vm.max_number_of_rolls.observe(context, {
+            roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
+        })
+
         roll_bt.setOnClickListener{
             vm.rollDices()
             vm.decrementRolls()

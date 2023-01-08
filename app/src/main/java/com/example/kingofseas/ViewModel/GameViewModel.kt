@@ -37,6 +37,12 @@ class GameViewModel : ViewModel() {
 
     val dices: MutableLiveData<List<Dice>> = MutableLiveData(listOf(dice1, dice2, dice3, dice4, dice5, dice6))
 
+    val card1 = Card("MedKit", "Get 3 HP", 3)
+    val card2 = Card("Close to Victory", "Get 3WP", 7)
+    val card3 = Card("Dices for everyone", "1 more roll", 10)
+
+    val cards: MutableLiveData<List<Card>> = MutableLiveData(listOf(card1,card2,card3))
+
     //Decrement the number of remaining rolls
     fun decrementRolls() {
         remaining_rolls.postValue(remaining_rolls.value!!.dec())
@@ -47,6 +53,20 @@ class GameViewModel : ViewModel() {
         var temp = players.value
         temp!![position].isAlive = !temp!![position].isAlive
         players.postValue(temp!!)
+    }
+
+    fun applyCard(position: Int) {
+        if (cards.value!![position].title == card1.title) {
+            addToPlayerValue(DiceFace.HEALTH, currentPlayerInd.value!!, 3)
+        }
+
+        if (cards.value!![position].title == card2.title) {
+            addToPlayerValue(DiceFace.FACE_ONE, currentPlayerInd.value!!, 3)
+        }
+
+        if (cards.value!![position].title == card3.title) {
+            max_number_of_rolls.value = max_number_of_rolls.value!! + 1
+        }
     }
 
     //Add the value to the Health, Energy, Winning Point depending on the face to the player at the position in the list

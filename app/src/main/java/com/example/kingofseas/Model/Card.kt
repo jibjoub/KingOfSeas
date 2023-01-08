@@ -1,8 +1,4 @@
 package com.example.kingofseas.Model
 
-class Card(title: String, description: String, price: Int, val cardEffect: () -> Unit) {
-
-    fun applycardEffect() {
-        cardEffect()
-    }
+class Card(var title: String, var description: String, var price: Int) {
 }
