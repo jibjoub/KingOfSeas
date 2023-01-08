@@ -12,9 +12,7 @@ The goal of this project is to create an application which enables a user (calle
 
 All are EPITA students.
 
-## How to open this project in Android Studio
+## How to play King of Seas
 
-* Open Android Studio and click on **Open project from Version Control**
-* Login to **GitHub** with the token authentification
-* Clone this repository by selectioning it and cliking on **Clone**
-* You can now build the application
+* This game is based on King of Tokyo
+* This game is meant to be played with 4 people around the same device
