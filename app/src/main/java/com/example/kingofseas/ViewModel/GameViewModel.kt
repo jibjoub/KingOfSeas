@@ -107,6 +107,9 @@ class GameViewModel : ViewModel() {
                 if (player_alive <= 1)
                     is_game_finished.value = Pair(true, players.value!![currentPlayerInd.value!!].name)
             }
+            else if (position == kingPlayerInd.value){
+                king_being_attacked.value = true
+            }
             //Can't go higher than 10 HP
             if (temp_players!![position].health > 10)
                 temp_players!![position].health = 10
@@ -198,7 +201,6 @@ class GameViewModel : ViewModel() {
                 else {
                     if (kingPlayerInd.value != -1) {
                         addToPlayerValue(entry.key, kingPlayerInd.value!!,  diceFaceToInt(entry.key) * entry.value)
-                        king_being_attacked.value = true
                     }
                 }
             }

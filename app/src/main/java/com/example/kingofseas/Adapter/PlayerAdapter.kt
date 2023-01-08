@@ -59,9 +59,9 @@ class PlayerAdapter(var dataSource: List<Player>, val clickListener: (Int) -> Un
         holder.image.setImageResource(dataSource[position].Icon)
         //Grey out the player if he/she is dead or not
         if (dataSource[position].isAlive)
-            holder.layoutItem.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.layoutItem.setBackgroundColor(Color.parseColor("#0E45D0"))
         else
-            holder.layoutItem.setBackgroundColor(Color.parseColor("#AAAAAA"))
+            holder.layoutItem.setBackgroundColor(Color.parseColor("#B60606"))
         holder.itemView.setOnClickListener {
             clickListener(position)
         }

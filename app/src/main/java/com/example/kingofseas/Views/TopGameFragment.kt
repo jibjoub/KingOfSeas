@@ -76,19 +76,17 @@ class TopGameFragment : Fragment() {
             }
 
             builder.apply {
-                this!!.setPositiveButton("Leave",
+                this!!.setPositiveButton("Yes",
                     DialogInterface.OnClickListener { dialog, id ->
                         vm.kingPlayerInd.value = -1
-                        Toast.makeText(context, "Escaping", Toast.LENGTH_SHORT).show()
                     })
-                setNegativeButton("Stay",
+                setNegativeButton("No",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(context, "Staying", Toast.LENGTH_SHORT).show()
                     })
             }
 
             // 2. Chain together various setter methods to set the dialog characteristics
-            builder?.setMessage("Do you want to escape Tokyo?")!!.setTitle("The king is being attacked!")
+            builder?.setMessage("Do you want to escape Tokyo?")!!.setTitle("The monster in the sea is being attacked!")
 
             // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
             val dialog: AlertDialog? = builder?.create()

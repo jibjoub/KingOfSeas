@@ -5,9 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingEnd="10dp"
-    android:id="@+id/layout_item"
-    android:backgroundTint="@color/dark_blue_top"
-    android:background="@color/dark_blue_top">
+    android:id="@+id/layout_item">
 
     <ImageView
         android:id="@+id/iv_icon_player"
