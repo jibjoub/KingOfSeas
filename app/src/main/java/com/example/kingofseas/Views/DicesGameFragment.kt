@@ -42,6 +42,7 @@ class DicesGameFragment : Fragment() {
 
         val vm = context.viewModel
 
+
         val dices_rv: RecyclerView = view.findViewById(R.id.rv_dices)
 
         //Allow to have an horizontal recycler_view to display the players
@@ -79,6 +80,9 @@ class DicesGameFragment : Fragment() {
         vm.max_number_of_rolls.observe(context, {
             roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
         })
+
+        vm.rollDices()
+        vm.decrementRolls()
 
         roll_bt.setOnClickListener{
             vm.rollDices()

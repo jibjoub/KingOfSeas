@@ -51,7 +51,7 @@ class CardAdapter(var dataSource: List<Card>, val clickListener: (Int) -> Unit):
         holder.image.setImageResource(dataSource[position].image)
         holder.title.text = dataSource[position].title
         holder.description.text = dataSource[position].description
-        holder.energy.text = dataSource[position].price.toString() + " E"
+        holder.energy.text = dataSource[position].price.toString()
         holder.itemView.setOnClickListener {
             clickListener(position)
         }

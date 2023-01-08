@@ -53,9 +53,9 @@ class PlayerAdapter(var dataSource: List<Player>, val clickListener: (Int) -> Un
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.nameText.text = dataSource[position].name
-        holder.healthText.text = dataSource[position].health.toString() + "HP"
-        holder.winPointsText.text = dataSource[position].winPoint.toString() + "WP"
-        holder.energyText.text = dataSource[position].energy.toString() + " E"
+        holder.healthText.text = dataSource[position].health.toString()
+        holder.winPointsText.text = dataSource[position].winPoint.toString()
+        holder.energyText.text = dataSource[position].energy.toString()
         holder.image.setImageResource(dataSource[position].Icon)
         //Grey out the player if he/she is dead or not
         if (dataSource[position].isAlive)

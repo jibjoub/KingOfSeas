@@ -39,29 +39,81 @@
         app:layout_constraintTop_toBottomOf="@id/name"
         android:layout_marginStart="4dp">
 
-        <TextView
-            android:id="@+id/health"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8HP"
-            android:paddingEnd="5dp"
-            android:textColor="@color/white">
-        </TextView>
-        <TextView
-            android:id="@+id/win_points"
+            android:layout_marginEnd="4dp">
+            <TextView
+                android:id="@+id/health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:paddingEnd="2dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/iv_health"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/heart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/health"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2WP"
-            android:paddingEnd="5dp"
-            android:textColor="@color/white">
-        </TextView>
-        <TextView
-            android:id="@+id/energy"
+            android:layout_marginEnd="4dp">
+            <TextView
+                android:id="@+id/win_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:paddingEnd="2dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/iv_win_point"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/trophy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/win_points"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 Energy"
-            android:textColor="@color/white">
-        </TextView>
+            android:layout_marginEnd="4dp">
+            <TextView
+                android:id="@+id/energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:paddingEnd="2dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/iv_energy"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/lightning_bolt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/energy"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
