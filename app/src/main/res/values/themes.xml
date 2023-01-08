@@ -15,7 +15,7 @@
     </style>
     <style name="Theme.MyApplication.GameTitle">
         <item name="android:textColor">@color/purple_200</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">48sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">16sp</item>
     </style>
