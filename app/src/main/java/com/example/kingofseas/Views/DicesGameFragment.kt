@@ -12,17 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kingofseas.Adapter.DiceAdapter
 import com.example.kingofseas.GameActivity
 import com.example.kingofseas.R
+import android.view.animation.Animation
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import android.view.animation.LinearInterpolator
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DicesGameFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
+
+
 class DicesGameFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +64,7 @@ class DicesGameFragment : Fragment() {
 
         val roll_bt: Button = view.findViewById(R.id.bt_roll)
         val current_player_tv: TextView = view.findViewById(R.id.tv_current_player)
+        val ic_current_player: ImageView = view.findViewById(R.id.iv_icon_player_current)
 
         vm.remaining_rolls.observe(context, {
             roll_bt.text = "ROLL DICES " + vm.remaining_rolls.value!!.toString() + "/" + vm.max_number_of_rolls.value!!.toString()
@@ -75,6 +73,7 @@ class DicesGameFragment : Fragment() {
 
         vm.currentPlayerInd.observe(context, {
             current_player_tv.text = vm.players.value!![vm.currentPlayerInd.value!!].name + " is playing"
+            ic_current_player.setImageResource(vm.players.value!![vm.currentPlayerInd.value!!].Icon)
         })
 
         vm.max_number_of_rolls.observe(context, {

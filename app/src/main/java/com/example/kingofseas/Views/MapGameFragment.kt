@@ -1,6 +1,8 @@
 package com.example.kingofseas.Views
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
+import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.kingofseas.GameActivity
 import com.example.kingofseas.GameOverActivity
 import com.example.kingofseas.R
+import android.view.animation.Animation
+
+import android.view.animation.LinearInterpolator
+
+import android.view.animation.RotateAnimation
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +51,8 @@ class MapGameFragment : Fragment() {
         return view
     }
 
+    private lateinit var rocketAnimation: AnimationDrawable
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,19 +61,21 @@ class MapGameFragment : Fragment() {
 
         val vm = context.viewModel
 
-        val tvKing = view.findViewById<TextView>(R.id.tv_king)
-        //val tvWinner = view.findViewById<TextView>(R.id.tv_winner)
+        val ivIcon = view.findViewById<ImageView>(R.id.iv_current_in_sea)
 
         vm.kingPlayerInd.observe(context, {
-            if (vm.kingPlayerInd.value!! == -1)
-                tvKing.text = "No king in the Sea"
+            if (vm.kingPlayerInd.value!! == -1) {
+                ivIcon.setImageResource(0)
+            }
             else {
-                val king_name = vm.players.value!![vm.kingPlayerInd.value!!].name
-                tvKing.text = king_name
-                Toast.makeText(context, "$king_name is now king/queen", Toast.LENGTH_SHORT).show()
+                val king = vm.players.value!![vm.kingPlayerInd.value!!]
+                ivIcon.setImageResource(king.Icon)
+                Toast.makeText(context, king.name + " is now in the sea", Toast.LENGTH_SHORT).show()
             }
 
         })
+
+
 
         vm.is_game_finished.observe(context, {
             if (vm.is_game_finished.value!!.first) {
